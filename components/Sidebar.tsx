@@ -37,7 +37,7 @@ const Sidebar = ({children} : SidebarProps) => {
     }, [pathname])
 
   return (
-    <div className='h-[100vh] flex'>
+    <div className='h-[100vh] flex overflow-hidden'>
         <div className='hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2'>
             <Box>
                 <div className='flex flex-col gap-5 p-4'>
