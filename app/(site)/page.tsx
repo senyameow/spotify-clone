@@ -1,13 +1,17 @@
 
-
-import Image from 'next/image'
 import '../globals.css'
-import Box from '@/components/Box'
 import Header from '@/components/Header'
 import ListItem from '@/components/ListItem'
+import getSongs from '@/actions/getSongs'
+import PageContent from '../components/PageContent';
+
+export const revalidate = 0;
 
 
-export default function Home() {
+export default async function Home() {
+
+  const songs = await getSongs()
+
   return (
    <div className='bg-neutral-900 h-full w-full overflow-hidden overflow-y-auto rounded-lg'>
       <Header>
@@ -23,9 +27,7 @@ export default function Home() {
       </Header>
       <div className='px-6 mb-7 mt-3'>
         <h1 className='text-2xl text-white'>Newest Songs</h1>
-      <div>
-        here will be list of songs 
-      </div>
+      <PageContent songs={songs} />
       </div>
 
      
