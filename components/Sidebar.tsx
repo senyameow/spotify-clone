@@ -10,14 +10,20 @@ import Box from './Box'
 import Link from 'next/link'
 import SidebarItem from './SidebarItem'
 import Library from './Library'
+import { Song } from '@/types'
 
 
 
 interface SidebarProps {
-    children: React.ReactNode
+    children: React.ReactNode;
+    songs: Song[];
 }
 
-const Sidebar = ({children} : SidebarProps) => {
+
+const Sidebar = ({children, songs} : SidebarProps) => {
+
+    console.log(songs)
+
 
     const pathname = usePathname() //returns a string of the current URL's pathname
 
@@ -47,7 +53,7 @@ const Sidebar = ({children} : SidebarProps) => {
                 </div>
             </Box>
             <Box className='overflow-y-auto h-full'>
-                <Library />
+                <Library songs={songs}/>
             </Box>
         </div>
         

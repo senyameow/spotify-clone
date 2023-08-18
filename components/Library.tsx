@@ -5,8 +5,14 @@ import {AiOutlinePlus} from 'react-icons/ai'
 import { useUser } from '@/hooks/useUser' 
 import useAuthModal from '@/hooks/useAuthModal'
 import useUploadModal from '@/hooks/useUploadModal'
+import { Song } from '@/types'
+import LibraryItem from './LibraryItem'
 
-const Library = () => {
+interface LibraryProps {
+    songs: Song[]
+}
+
+const Library = ({songs} : LibraryProps) => {
 
     const { user } = useUser()
     const {onOpen : onOpenAuth} = useAuthModal()
@@ -32,7 +38,10 @@ const Library = () => {
             <AiOutlinePlus onClick={handleClick} size={24} className={'hover:text-white cursor-pointer'} />
         </div>
         <div className='flex flex-col gap-y-2 mt-4 px-3 text-white'>
-            List of songs
+            <button onClick={() => console.log(songs)}>check songs</button>
+            {songs.map(song => (
+                <LibraryItem key={song.id} onClick={() => console.log(song.id)} data={song} />
+            ))}
         </div>
     </div>
   )

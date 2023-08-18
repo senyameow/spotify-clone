@@ -6,6 +6,9 @@ import SupabaseProvider from '@/providers/SupabaseProvider'
 import UserProvider from '@/providers/UserProvider'
 import ModalProvider from '@/providers/ModalProvider'
 import ToasterProvider from '@/providers/ToasterProvider'
+import getSongsByUserId from '@/actions/getSongsByUserId'
+
+
 
 const font = Figtree({ subsets: ['latin'] })
 
@@ -14,11 +17,22 @@ export const metadata: Metadata = {
   description: 'Spotify clone by senyameow',
 }
 
-export default function RootLayout({
+
+
+// false | 'force-cache' | 0 | number 
+// Ensure a layout or page is always dynamically rendered even if no dynamic functions or uncached data fetches are discovered
+
+
+
+export default async function RootLayout({ 
   children,
 }: {
   children: React.ReactNode
 }) {
+
+  const userSongs = await getSongsByUserId()
+
+
   return (
     <html lang="en">
       <body className={font.className}>
@@ -26,7 +40,7 @@ export default function RootLayout({
         <SupabaseProvider>
           <UserProvider>
             <ModalProvider />
-            <Sidebar> 
+            <Sidebar songs={userSongs}> 
               {children}
             </Sidebar>
           </UserProvider>
