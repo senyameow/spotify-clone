@@ -1,5 +1,6 @@
 'use client'
 import LibraryItem from '@/components/LibraryItem'
+import LikeButton from '@/components/LikeButton'
 import { Song } from '@/types'
 import React from 'react'
 
@@ -21,9 +22,12 @@ const SearchContent = ({songs} : SearchContentProps) => {
     <div className='flex flex-col w-full gap-2 px-6'>
         <div className=''>
             {songs.map(song => (
-                <LibraryItem data={song} onClick={() => {}} />
+                <div key={song.id} className='flex flex-row justify-between w-full gap-3'>
+                    <LibraryItem data={song} onClick={() => {}} />
+                </div>
             ))}
         </div>
+
     </div>
   )
 }

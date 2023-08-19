@@ -22,7 +22,6 @@ interface SidebarProps {
 
 const Sidebar = ({children, songs} : SidebarProps) => {
 
-    console.log(songs)
 
 
     const pathname = usePathname() //returns a string of the current URL's pathname

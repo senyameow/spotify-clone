@@ -23,6 +23,8 @@ export const MyUserContextProvider = (props : Props) => {
         supabaseClient: supabase
     } = useSessionContext()
 
+   
+
     
 
     const user = useSupaUser()
