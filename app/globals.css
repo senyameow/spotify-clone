@@ -10,3 +10,45 @@ body,
   color-scheme: dark;
   /* overflow-y: hidden; */
 }
+
+
+
+.SliderRoot {
+  position: relative;
+  display: flex;
+  align-items: center;
+  user-select: none;
+  touch-action: none;
+  width: 140px;
+  height: 10px;
+}
+
+.SliderTrack {
+  position: relative;
+  flex-grow: 1;
+  border-radius: 9999px;
+  height: 3px;
+}
+
+.SliderRange {
+  position: absolute;
+  background-color: white;
+  border-radius: 9999px;
+  height: 100%;
+}
+
+.SliderThumb {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-color: white;
+  box-shadow: 0 2px 10px white;
+  border-radius: 20px;
+}
+.SliderThumb:hover {
+  background-color: white;
+}
+/* .SliderThumb:focus {
+  outline: none;
+  box-shadow: 0 0 0 5px white;
+} */

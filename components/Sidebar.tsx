@@ -57,7 +57,7 @@ const Sidebar = ({children, songs} : SidebarProps) => {
         </div>
         
 
-        <main className='w-full h-full'>
+        <main className='flex-1 overflow-y-auto h-full'>
             {children}
         </main>
     </div>

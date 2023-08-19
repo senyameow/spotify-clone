@@ -1,6 +1,7 @@
 'use client'
 import LibraryItem from '@/components/LibraryItem'
 import LikeButton from '@/components/LikeButton'
+import useOnPlay from '@/hooks/useOnPlay'
 import { Song } from '@/types'
 import React from 'react'
 
@@ -9,6 +10,10 @@ interface SearchContentProps {
 }
 
 const SearchContent = ({songs} : SearchContentProps) => {
+
+    // в серче тоже дают песни! Сюда сразу прилетает список треков, которые мы искали (только они), что сообственно нам и надо!
+
+    const onplay = useOnPlay(songs)
 
     if(songs.length === 0) {
         return (
@@ -23,7 +28,7 @@ const SearchContent = ({songs} : SearchContentProps) => {
         <div className=''>
             {songs.map(song => (
                 <div key={song.id} className='flex flex-row justify-between w-full gap-3'>
-                    <LibraryItem data={song} onClick={() => {}} />
+                    <LibraryItem data={song} onClick={() => onplay(song.id)} />
                 </div>
             ))}
         </div>

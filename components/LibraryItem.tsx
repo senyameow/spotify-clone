@@ -7,12 +7,13 @@ import LikeButton from './LikeButton';
 interface LibraryProps {
     onClick: (id : string) => void;
     data: Song;
+    no_like?: boolean
 }
 
 // будем выводить картинку + название
 // чтобы вывести картинку, нам надо получить ее юрл =)
 
-const LibraryItem = ({onClick, data} : LibraryProps) => {
+const LibraryItem = ({onClick, data, no_like=false} : LibraryProps) => {
 
     const imageURL = useLoadImage(data)?.publicUrl
 
@@ -34,7 +35,7 @@ const LibraryItem = ({onClick, data} : LibraryProps) => {
             </div>
         </div>
 
-        <LikeButton songId={data.id} onClick = {() => console.log(data.id)} />
+        {!no_like && <LikeButton songId={data.id} onClick = {() => console.log(data.id)} />}
     </div>
   )
 }

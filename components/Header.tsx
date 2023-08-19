@@ -49,7 +49,7 @@ const Header = ({children, className} : HeaderProps ) => {
   return ( 
     <header className={twMerge(`h-fit bg-gradient-to-b from-emerald-800 p-6`, className)}>
         <div className='w-full flex flex-row justify-between items-center mb-4'>
-            <div className='hidden md:flex items-center gap-3'>
+            <div className='hidden md:flex items-center gap-x-3'>
                 <button className='bg-black rounded-full w-[45px] h-[45px] hover:opacity-[.8] flex justify-center items-center cursor-pointer'>
                     <BiLeftArrowAlt onClick={() => router.back()} size={20} className='text-white' />
                 </button> 
@@ -58,7 +58,7 @@ const Header = ({children, className} : HeaderProps ) => {
                 </button>
             </div>
 
-            <div className='flex md:hidden items-center gap-3'>
+            <div className='flex md:hidden items-center gap-x-3'>
                 <button className='bg-white rounded-full w-[26px] h-[26px] hover:opacity-[.8] flex justify-center items-center cursor-pointer'>
                     <AiFillHome onClick={() => console.log('clicked!')} size={20} className='text-black' />
                 </button>
@@ -68,7 +68,7 @@ const Header = ({children, className} : HeaderProps ) => {
             </div>
 
             {user ? (
-                <div className='flex items-center gap-6'>
+                <div className='flex items-center gap-x-6'>
                     <Button click={logout} className='text-black px-6 bg-white'>
                         Logout
                     </Button>
@@ -76,7 +76,7 @@ const Header = ({children, className} : HeaderProps ) => {
                         <FaUserAlt size={24} />
                     </Button>
                 </div>
-            ) : <div className='flex flex-row gap-3'>
+            ) : <div className='flex flex-row gap-x-3'>
                 <Button click={onOpen} disabled={false} className='bg-transparent text-white font-medium'>
                     Sign In
                 </Button>

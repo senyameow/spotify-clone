@@ -7,6 +7,7 @@ import UserProvider from '@/providers/UserProvider'
 import ModalProvider from '@/providers/ModalProvider'
 import ToasterProvider from '@/providers/ToasterProvider'
 import getSongsByUserId from '@/actions/getSongsByUserId'
+import Player from '@/components/Player'
 
 
 
@@ -43,6 +44,7 @@ export default async function RootLayout({
             <Sidebar songs={userSongs}> 
               {children}
             </Sidebar>
+            <Player /> {/* хотим видеть плеер на всех наших страничка внизу, поэтому добавляем в лэйаут ниже страниц */}
           </UserProvider>
         </SupabaseProvider>
       </body>
