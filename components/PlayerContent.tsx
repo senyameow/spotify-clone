@@ -39,9 +39,12 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
 
 
 
-    const [play, {pause, sound}] = useSound(songURL, {
+    const [play, {pause, sound, stop}] = useSound(songURL, {
         volume: volume, // указываем громкость (дефолтная 100% стоит)
-        onplay: () => setIsPlaying(true), // меняем стейт
+        onplay: () => {
+            console.log(songURL)
+            setIsPlaying(true)
+        }, // меняем стейт
         onend: () => {
             setIsPlaying(false)
             onPlayNext()
@@ -54,15 +57,22 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
     }) // используем ссылку, которую зафетчили с дб
 
     useEffect(() => {
+
+
         sound?.play()
 
-        return sound?.unload()
-    }, [sound])
+        return () => {
+            sound?.unload(); // удаляет прошлый трек (это спасает нас)
+          }
+    }, [sound, player.activeId])
 
     const handlePlay = () => {
+        console.log(`gonna play!`)
         if (!isPlaying) {
+            console.log('playing!')
             play()
         } else {
+            // stop(player.ids[player.ids.findIndex(id => id === player.activeId)])
             pause()
         }
     }  // кнопка плэй
@@ -78,6 +88,8 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
     // функции для скипов
 
     const onPlayNext = () => {
+
+
         if (player.ids.length === 0) return // если айдишников нет в списке нет, то ретерн
 
         // чтобы включить некст трек, мы должны знать индекс трека в списке айдишников, потому что следующий трек = следующий индекс
@@ -90,13 +102,22 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
 
         const nextSong = player.ids[currentIndex + 1] // но если это последний трек, то гг будет, надо проверить
 
+
         if (!nextSong) {
-            return player.setId(player.ids[0])
+            console.log(player.ids[0], 'im gonna play')
+            player.setId(player.ids[0])
+            console.log(player.activeId)
+            return play()
         }
 
+
         player.setId(nextSong)
+        console.log(nextSong)
     }
     const onPlayPrev = () => {
+
+
+
         if (player.ids.length === 0) return // если айдишников нет в списке нет, то ретерн
 
         // чтобы включить некст трек, мы должны знать индекс трека в списке айдишников, потому что следующий трек = следующий индекс
@@ -105,6 +126,7 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
         // мы нажали на трек activeId стал равен айдишнику трека
         // и мы находим индекс трека, который сейчас активный (или потом переключится на активный)
 
+
         // следующий трек просто следующий индекс
 
         const prevSong = player.ids[currentIndex - 1] // но если это последний трек, то гг будет, надо проверить
@@ -112,6 +134,8 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
         if (!prevSong) {
             return player.setId(player.ids[player.ids.length - 1])
         }
+
+
 
         player.setId(prevSong)
     }
@@ -127,14 +151,14 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
         
 
         <div onClick={() => {}} className='flex md:hidden col-auto w-full justify-end items-center flex-1'> {/* кнопка плэй для мобилок, делаем так, чтобы ее не существовало от мд */}
-            <div className='hover:opacity-[.9] h-10 w-10 flex flex-row items-center justify-center rounded-full bg-white p-1 cursor-pointer'>
+            <div onClick={handlePlay} className='hover:opacity-[.9] h-10 w-10 flex flex-row items-center justify-center rounded-full bg-white p-1 cursor-pointer'>
                 <Icon className={'text-black'} size={30} />
             </div>
         </div> {/* нет дива на пк (плэй для мобилки) */}
 
         <div className='hidden md:flex items-center justify-center w-full max-w-[722px] gap-x-6'>
             <AiFillStepBackward onClick={onPlayPrev} size={30} className={`text-neutral-400 cursor-pointer hover:text-white transition duration-100`} />
-            <div onClick={() => {}} className='hover:opacity-[.9] h-10 w-10 flex flex-row items-center justify-center rounded-full bg-white p-1 cursor-pointer'>
+            <div onClick={handlePlay} className='hover:opacity-[.9] h-10 w-10 flex flex-row items-center justify-center rounded-full bg-white p-1 cursor-pointer'>
                 <Icon size={30} className={'text-black'} />
             </div>
             <AiFillStepForward onClick={onPlayNext} size={30} className={`text-neutral-400 cursor-pointer hover:text-white transition duration-100`} />
@@ -143,9 +167,9 @@ const PlayerContent = ({song, songURL} : PlayerContentProps) => {
 
         <div className='hidden md:flex w-full justify-end pr-2'>
             <div className='flex flex-row gap-x-2 items-center w-full justify-end'>
-                <VolumeIcon onClick={() => {}} size={30} className='cursor-pointer hover:opacity-[.9]' /> {/* при нажатии будет мутить трек */}
+                <VolumeIcon onClick={handleMute} size={30} className='cursor-pointer hover:opacity-[.9]' /> {/* при нажатии будет мутить трек */}
 
-                <Slider /> {/* сделаем регулятор громкости с помощью радикса */}
+                <Slider value={volume} onChange={(value) => setVolume(value!)} /> {/* сделаем регулятор громкости с помощью радикса */}
             </div>
         </div> {/* нет дива на мобилке (громкость) */}
 
