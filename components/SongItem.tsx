@@ -20,7 +20,7 @@ const SongItem = ({data, onClick} : SongItemProps) => {
 
 
   return (
-    <div onClick={onClick} className='relative group flex flex-col justify-center rounded-md bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition duration-300 p-3  '>
+    <div onClick={() => onClick(data.id)} className='relative group flex flex-col justify-center rounded-md bg-neutral-400/5 cursor-pointer hover:bg-neutral-400/10 transition duration-300 p-3'>
         <div className='relative rounded-md aspect-square w-full h-full overflow-hidden'>
             <Image className='object-cover aspect-square' src={imageURL || 'https://100biografiy.ru/wp-content/uploads/2021/12/Snimok-ekrana-2021-12-25-v-13.43.16.jpg'} alt='image' width={300} height={300}/>
         </div>
